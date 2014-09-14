@@ -56,9 +56,8 @@ IN_AUDIO = ''
 # Self-reference for debugging feedback.
 THIS_FILE = os.path.basename(__file__)
 
-# Temporary output filename. We use MKV as container because MP4 doesn't
-# support FLAC audio.
-PATH_OUTPUT = 'tmp.mkv'
+# Temporary output filename.
+PATH_OUTPUT = 'tmp.mp4'
 
 # Whether to display ffmpeg/ffprobe output.
 VERBOSE = False
@@ -99,6 +98,8 @@ for type in TAGS_DB:
             item = item.split(':')[0]
         TAGS_ALL[item] = n
 
+# Human-readable versions of the tags. These are shown when adding
+# a list of tags to the video's description.
 TAGS_READABLE = ['Album', 'Title', 'Artist', 'Album Artist', 'Release Date', 'Release Date', 'Original Release Date', 'Composer', 'Lyricist', 'Writer', 'Conductor', 'Performer', 'Remixer', 'Arranger', 'Engineer', 'Producer', 'Mix-DJ', 'Mixer', 'Grouping', 'Subtitle', 'Disc Subtitle', 'Track Number', 'Total Tracks', 'Disc Number', 'Total Discs', 'Compilation (iTunes)', 'Comment', 'Comment', 'Genre', 'BPM', 'Mood', 'ISRC', 'Copyright', 'Lyrics', 'Media', 'Record Label', 'Catalog Number', 'Barcode', 'Encoded By', 'Encoder Settings', 'Album Sort Order', 'Album Artist Sort Order', 'Artist Sort Order', 'Title Sort Order', 'Composer Sort Order', 'Show Name Sort Order', 'ASIN', 'Gapless Playback', 'Podcast', 'Podcast URL', 'Show Name', 'Script', 'Language', 'License', 'Original Year', 'AcoustID', 'AcoustID Fingerprint', 'Website', 'Work Title', 'Website', 'Original Artist']
 
 # Lookup function that translates any system's tag (e.g. ID3v2's TLAN or 
@@ -369,6 +370,9 @@ if __name__ == '__main__':
     if not (os.path.exists(IN_IMAGE) and os.path.exists(IN_AUDIO)):
         error_exit('Please specify a valid image and audio file.')
     
+    in_image_ext = os.path.splitext(IN_IMAGE)[1];
+    in_audio_ext = os.path.splitext(IN_AUDIO)[1];
+    
     print('%s %s' % (THIS_FILE, T2T_VERSION))
     
     # Check our MP3/OGG/FLAC/etc file and get its duration.
@@ -437,16 +441,33 @@ if __name__ == '__main__':
         '-framerate', '1:1',
         # one input file is the picture
         '-i', IN_IMAGE,
-        # one input file is the audio
-        '-i', IN_AUDIO,
-        # only copy the audio, don't re-encode it
-        '-c:a', 'copy',
-        # duration of the video
-        '-t', str(delta.total_seconds()),
         # automatically overwrite on duplicate
         '-y',
+    ]
+    # Add the audio file.
+    if in_audio_ext == '.flac':
+        # mp4 doesn't take flac very well, so we'll convert it.
+        ffmpeg_cmd.extend([
+            # one input file is the audio
+            '-i', IN_AUDIO,
+            # for compatibility with various builds, we'll use MP3
+            '-c:a', 'libmp3lame',
+            # high quality CBR is good enough
+            '-b:a', '320k',
+        ])
+    else:
+        ffmpeg_cmd.extend([
+            # one input file is the audio
+            '-i', IN_AUDIO,
+            # only copy the audio, don't re-encode it
+            '-c:a', 'copy',
+        ])
+    # Add the video encoding options.
+    ffmpeg_cmd.extend([
         # use x264 as the video encoder
         '-c:v', 'libx264',
+        # duration of the video
+        '-t', str(delta.total_seconds()),
         # 4:4:4 chroma subsampling (best quality)
         '-pix_fmt', 'yuv444p',
         # as fast as possible, at cost of filesize (uploading costs less time)
@@ -455,7 +476,8 @@ if __name__ == '__main__':
         '-qp', '0',
         # output
         PATH_OUTPUT
-    ]
+    ])
+    
     try:
         probe_out = subprocess.check_output(ffmpeg_cmd, stderr=subprocess.STDOUT)
         if VERBOSE:
