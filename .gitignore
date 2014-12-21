@@ -1,6 +1,9 @@
 # Unsorted files, backups and WIPs
 _src
 
+# Modules
+node_modules
+
 # The oauth files
 client_secrets.json
 *-oauth2.json
