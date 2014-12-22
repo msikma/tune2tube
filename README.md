@@ -4,6 +4,7 @@ tune2tube.py
 This script converts an image and audio file into a movie, and then
 uploads that movie to Youtube. It's meant for quickly sharing music.
 
+
 Synopsis
 --------
 
@@ -79,16 +80,12 @@ libraries.
 You'll need to install [Google's Python API client
 library](https://github.com/google/google-api-python-client):
 
-```
-$ pip install --upgrade google-api-python-client
-```
+    $ pip install --upgrade google-api-python-client
 
 We'll also need their [OAuth 2.0 client
 library](https://github.com/google/oauth2client):
 
-````
-$ pip install --upgrade oauth2client
-````
+    $ pip install --upgrade oauth2client
 
 (For these two examples, you can use `easy_install` rather than `pip` if
 you prefer using that.)
@@ -97,10 +94,9 @@ For extracting metadata from various audio files, we use
 [Mutagen](https://bitbucket.org/lazka/mutagen/). Download the latest
 version, extract it, and run:
 
-```
-$ ./setup.py build
-$ sudo ./setup.py install
-```
+    $ ./setup.py build
+    $ sudo ./setup.py install
+
 
 OAuth 2.0 client configuration
 ------------------------------
@@ -129,6 +125,7 @@ having been taken, you might have hit [a bug in Google's
 systems](http://stackoverflow.com/a/23750669/3553425)—try opening the
 old console as this user states, and it might fix your problem as it did
 for me.
+
 
 License
 -------
