@@ -289,6 +289,9 @@ for more details.
             title = self.settings['title_sep'].join(items)
         else:
             title = self.settings['title']
+        
+        if title == '':
+            title = '(no title)'
     
         # Add the metadata tags to the description if needed.
         description = self.settings['description'].strip()
