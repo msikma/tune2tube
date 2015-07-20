@@ -1,0 +1,4 @@
+httplib2
+mutagen
+google-api-python-client
+oauth2client
