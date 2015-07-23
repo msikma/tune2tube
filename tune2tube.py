@@ -19,11 +19,8 @@
 #
 # This script contains code from <https://developers.google.com/>.
 
-import os
 from oauth2client.tools import argparser
 from t2t import Tune2Tube
-
-this_file = os.path.basename(__file__)
 
 if __name__ == '__main__':
     # Run the script using our command line arguments.
