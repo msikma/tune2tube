@@ -3,7 +3,7 @@
 
 # tune2tube.py
 #
-# Copyright 2014 Michiel Sikma
+# Copyright (C) 2014-2015 Michiel Sikma and contributors
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
