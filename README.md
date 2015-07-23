@@ -75,27 +75,21 @@ Dependencies
 ------------
 
 Aside from your own Youtube Data API key, you'll need to download a few
-libraries [in a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+libraries [in a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
 
-You'll need to install [Google's Python API client
-library](https://github.com/google/google-api-python-client):
+    $ pip install -r requirements.txt
 
-    $ pip install --upgrade google-api-python-client
+The following libraries are installed:
 
-We'll also need their [OAuth 2.0 client
-library](https://github.com/google/oauth2client):
+* [Google's Python API client library](https://github.com/google/google-api-python-client)
+* [Google's OAuth 2.0 client library](https://github.com/google/oauth2client)
+* [Mutagen](https://bitbucket.org/lazka/mutagen/) (for extracting metadata)
+* [httplib2](https://github.com/jcgregorio/httplib2)
 
-    $ pip install --upgrade oauth2client
-
-(For these two examples, you can use `easy_install` rather than `pip` if
-you prefer using that.)
-
-For extracting metadata from various audio files, we use
-[Mutagen](https://bitbucket.org/lazka/mutagen/). Download the latest
-version, extract it, and run:
-
-    $ ./setup.py build
-    $ sudo ./setup.py install
+There's one additional dependency that can't be automatically installed,
+which is [ffmpeg](https://www.ffmpeg.org/). On Linux, it's likely in your
+package manager. On Mac OS X, it can be installed with [brew](http://brew.sh/)
+by typing `brew install ffmpeg`.
 
 
 OAuth 2.0 client configuration
