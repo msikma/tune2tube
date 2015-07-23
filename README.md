@@ -71,6 +71,49 @@ ffmpeg. For help on setting up these dependencies, see this project's Github
 page <http://github.com/msikma/tune2tube/> or the included README.md file.
 ```
 
+Example usage
+-------------
+
+If we want to upload a video built from `test.flac` and `test.png`,
+we'd type the following:
+
+    $ ./tune2tube.py _src/test.flac _src/test.png
+
+Something like the following output is shown:
+
+```
+Using image file `_src/test.png', size: 28659.
+Using audio file `_src/test.flac', size: 9755700, duration: 00:02:09.64.
+Extracted 7 tag(s) from the audio file.
+Encoding video file...
+Successfully generated the file `tmp.mp4'.
+Authenticating using the Youtube API...
+Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&response_type=code&client_id=xxx.apps.googleusercontent.com&access_type=offline
+
+If your browser is on a different machine then exit and re-run this
+application with the command-line parameter 
+
+  --noauth_local_webserver
+```
+
+At this point, the default browser is opened so you can give permission
+to upload a video to your Youtube channel. If you have multiple accounts,
+you can choose the one you want to use here.
+
+After the authentication flow finishes, the Terminal output resumes:
+
+```
+Authentication successful.
+Uploading file... (filesize: 5.9 MB)
+Video ID `dQw4w9WgXcQ' was successfully uploaded. Its visibility is set to `unlisted'.
+URL of the newly uploaded video: <https://www.youtube.com/watch?v=dQw4w9WgXcQ>
+It may take some time for the video to finish processing; typically 1-10 minutes.
+```
+
+The Youtube URL is now available, although it may not be processed yet.
+
 Dependencies
 ------------
 
