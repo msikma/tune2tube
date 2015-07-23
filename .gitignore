@@ -1,6 +1,8 @@
 # Unsorted files, backups and WIPs
 _src
 .idea
+.venv
+*.pyc
 
 # Modules
 node_modules

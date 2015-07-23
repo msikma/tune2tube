@@ -68,14 +68,14 @@ optional arguments:
 
 A Youtube Data API client key is required to use this script, as well as
 ffmpeg. For help on setting up these dependencies, see this project's Github
-page <http://github.com/msikma/tune2tube/> or the included README file.
+page <http://github.com/msikma/tune2tube/> or the included README.md file.
 ```
 
 Dependencies
 ------------
 
 Aside from your own Youtube Data API key, you'll need to download a few
-libraries.
+libraries [in a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
 
 You'll need to install [Google's Python API client
 library](https://github.com/google/google-api-python-client):
@@ -125,6 +125,13 @@ having been taken, you might have hit [a bug in Google's
 systems](http://stackoverflow.com/a/23750669/3553425)—try opening the
 old console as this user states, and it might fix your problem as it did
 for me.
+
+
+Code style
+----------
+
+The code is PEP8-compliant, with the exception of W291 and W293 and
+the rules that are ignored by default.
 
 
 License
