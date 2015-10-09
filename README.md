@@ -129,6 +129,8 @@ The following libraries are installed:
 * [Mutagen](https://bitbucket.org/lazka/mutagen/) (for extracting metadata)
 * [httplib2](https://github.com/jcgregorio/httplib2)
 
+### ffmpeg
+
 There's one additional dependency that can't be automatically installed,
 which is [ffmpeg](https://www.ffmpeg.org/). On Linux, it's likely in your
 package manager. On Mac OS X, it can be installed with [brew](http://brew.sh/)
