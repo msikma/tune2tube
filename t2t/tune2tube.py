@@ -361,7 +361,7 @@ response: %s''' % response)
             if error is not None:
                 print(error)
                 retry += 1
-                if retry > max_retries:
+                if retry > self.max_retries:
                     error_exit('''Too many upload errors. No longer \
 attempting to retry.''')
                 max_sleep = 2 ** retry
