@@ -404,14 +404,15 @@ retrying...''' % sleep_seconds)
         # Keep the original Mutagen output around too.
         self.settings['metadata'] = {}
         self.settings['orig_metadata'] = metadata
-        for tag in metadata:
-            item = metadata[tag]
-            # We join the item in case it's still a list, as in the case
-            # of Vorbis.
-            if isinstance(item, (list, tuple)):
-                item = ''.join(item)
-            self.settings['metadata'][self.tunetags.tag_lookup(tag)] = \
-                str(item)
+        if metadata is not None:
+            for tag in metadata:
+                item = metadata[tag]
+                # We join the item in case it's still a list, as in the case
+                # of Vorbis.
+                if isinstance(item, (list, tuple)):
+                    item = ''.join(item)
+                self.settings['metadata'][self.tunetags.tag_lookup(tag)] = \
+                    str(item)
 
         # Lift the actual track duration string out of the output.
         duration = re.findall('Duration: (.+?),', probe_out)
