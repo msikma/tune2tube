@@ -473,8 +473,10 @@ longer than 24 hours. (Duration: %s, exception: %s)''' % (
             '-y',
         ]
         # Add the audio file.
-        if in_audio_ext == '.flac':
+        if in_audio_ext == '.flac' or in_audio_ext == '.wav':
             # mp4 doesn't take flac very well, so we'll convert it.
+            # also make sure we encode wav files, since mp4 files with PCM
+            # audio sometimes don't decode well and don't get accepted.
             ffmpeg_cmd.extend([
                 # one input file is the audio
                 '-i', audio,
