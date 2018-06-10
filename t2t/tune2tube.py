@@ -200,7 +200,6 @@ using --title_str.''',
         )
         argparser.add_argument(
             '--add_metadata',
-            action='store_true',
             help='''Adds a list of audio file metadata to the \
 description (default: True).''',
             default=True
@@ -413,7 +412,11 @@ retrying...''' % sleep_seconds)
                 # We join the item in case it's still a list, as in the case
                 # of Vorbis.
                 if isinstance(item, (list, tuple)):
+                    item = [n for n in item if isinstance(n, (unicode))]
+                    if item == []: continue
                     item = ''.join(item)
+                elif not isinstance(item, (unicode)):
+                    continue
                 self.settings['metadata'][self.tunetags.tag_lookup(tag)] = \
                     str(item)
 
